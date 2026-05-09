@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CampusBite – Discover Food</title>
+  <link rel="stylesheet" href="../styles/home.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="nav-icon">🍔</span>
+      <span class="nav-name">CampusBite</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="home.html" class="nav-link active">Home</a></li>
+      <li><a href="recommendation.html" class="nav-link">Recommend</a></li>
+      <li><button class="nav-logout" onclick="logout()">Logout</button></li>
+    </ul>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  </nav>
+  <div class="nav-mobile hidden" id="nav-mobile">
+    <a href="home.html">Home</a>
+    <a href="recommendation.html">Recommend</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🎓 College Food Guide</div>
+      <h1 class="hero-title">
+        What are you<br/>
+        <span class="gradient-text">craving today?</span>
+      </h1>
+      <p class="hero-sub">Explore all food outlets on your campus. Use AI recommendations to find the perfect meal for your budget and mood.</p>
+      <a href="recommendation.html" class="btn-hero">
+        ✨ Get AI Recommendation
+      </a>
+    </div>
+    <div class="hero-emoji-cluster">
+      <span class="float e1">🍕</span>
+      <span class="float e2">🥗</span>
+      <span class="float e3">☕</span>
+      <span class="float e4">🍜</span>
+      <span class="float e5">🧆</span>
+    </div>
+  </section>
+
+  <!-- Outlets Section -->
+  <section class="outlets-section">
+    <div class="section-header">
+      <h2 class="section-title">Campus Outlets</h2>
+      <p class="section-sub">Your campus food scene – all in one place</p>
+    </div>
+
+    <div class="outlets-grid" id="outlets-grid">
+      <!-- Cards injected by JS -->
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+      <div class="skeleton-card"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Made with ❤️ for college students · <strong>CampusBite</strong></p>
+  </footer>
+
+  <script src="../scripts/home.js"></script>
+</body>
+</html>

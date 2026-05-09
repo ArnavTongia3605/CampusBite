@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CampusBite – Register</title>
+  <link rel="stylesheet" href="../styles/register.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <div class="auth-container">
+    <div class="brand">
+      <div class="brand-icon">🍕</div>
+      <h1 class="brand-name">CampusBite</h1>
+      <p class="brand-tagline">Join thousands of hungry students</p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">Create Account</h2>
+      <p class="card-sub">Start discovering food on your campus</p>
+
+      <div id="error-msg" class="error-msg hidden"></div>
+      <div id="success-msg" class="success-msg hidden"></div>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="choose_a_username" autocomplete="username" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="min 6 characters" autocomplete="new-password" />
+      </div>
+
+      <div class="field">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" placeholder="repeat password" autocomplete="new-password" />
+      </div>
+
+      <button class="btn-primary" id="register-btn" onclick="handleRegister()">
+        <span class="btn-text">Create Account</span>
+        <span class="btn-loader hidden"></span>
+      </button>
+
+      <p class="redirect-text">
+        Already have an account?
+        <a href="login.html" class="link">Sign in</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="../scripts/register.js"></script>
+</body>
+</html>

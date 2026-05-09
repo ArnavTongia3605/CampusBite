@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CampusBite – AI Recommendations</title>
+  <link rel="stylesheet" href="../styles/recommendation.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="nav-icon">🍔</span>
+      <span class="nav-name">CampusBite</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="home.html" class="nav-link">Home</a></li>
+      <li><a href="recommendation.html" class="nav-link active">Recommend</a></li>
+      <li><button class="nav-logout" onclick="logout()">Logout</button></li>
+    </ul>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  </nav>
+  <div class="nav-mobile hidden" id="nav-mobile">
+    <a href="home.html">Home</a>
+    <a href="recommendation.html">Recommend</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <main class="main">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="ai-badge">✨ Powered by Gemini AI</div>
+      <h1 class="page-title">Find Your <span class="gradient-text">Perfect Meal</span></h1>
+      <p class="page-sub">Tell us your preferences and our AI will recommend the best options from your campus.</p>
+    </div>
+
+    <!-- Form + Results layout -->
+    <div class="content-layout">
+
+      <!-- Filter Form -->
+      <div class="form-panel">
+        <h2 class="panel-title">Your Preferences</h2>
+
+        <!-- Budget -->
+        <div class="field">
+          <label>Budget (₹)</label>
+          <input type="number" id="budget" placeholder="e.g. 100" min="10" max="500" />
+        </div>
+
+        <!-- Mood -->
+        <div class="field">
+          <label>Mood / Craving</label>
+          <div class="chip-group" id="mood-chips">
+            <button class="chip" data-val="spicy">🌶️ Spicy</button>
+            <button class="chip" data-val="sweet">🍰 Sweet</button>
+            <button class="chip" data-val="tangy">🍋 Tangy</button>
+            <button class="chip" data-val="snacks">🍟 Snacks</button>
+            <button class="chip" data-val="drinks">🥤 Drinks</button>
+            <button class="chip" data-val="dessert">🧁 Dessert</button>
+            <button class="chip" data-val="healthy">🥗 Healthy</button>
+            <button class="chip" data-val="comfort">🍜 Comfort</button>
+          </div>
+          <input type="hidden" id="mood" />
+        </div>
+
+        <!-- Food Type -->
+        <div class="field">
+          <label>Meal Type</label>
+          <div class="chip-group" id="type-chips">
+            <button class="chip" data-val="breakfast">🍳 Breakfast</button>
+            <button class="chip" data-val="lunch">🍛 Lunch</button>
+            <button class="chip" data-val="snacks">🥪 Snacks</button>
+            <button class="chip" data-val="dinner">🌙 Dinner</button>
+          </div>
+          <input type="hidden" id="foodType" />
+        </div>
+
+        <!-- Veg / Non-Veg -->
+        <div class="field">
+          <label>Dietary Preference</label>
+          <div class="toggle-group">
+            <button class="toggle-btn active" data-val="true" onclick="setVeg('true', this)">
+              <span class="veg-dot veg"></span> Vegetarian
+            </button>
+            <button class="toggle-btn" data-val="false" onclick="setVeg('false', this)">
+              <span class="veg-dot nonveg"></span> Non-Veg
+            </button>
+            <button class="toggle-btn" data-val="both" onclick="setVeg('both', this)">
+              🌐 Both
+            </button>
+          </div>
+          <input type="hidden" id="isVeg" value="true" />
+        </div>
+
+        <button class="btn-submit" id="submit-btn" onclick="getRecommendations()">
+          <span class="btn-text">✨ Get Recommendations</span>
+          <span class="btn-loader hidden"></span>
+        </button>
+
+        <div id="form-error" class="form-error hidden"></div>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="results-panel" id="results-panel">
+        <!-- Initial placeholder -->
+        <div class="results-placeholder" id="results-placeholder">
+          <div class="placeholder-emoji">🤖</div>
+          <div class="placeholder-title">AI Ready</div>
+          <div class="placeholder-sub">Fill in your preferences and hit "Get Recommendations" to discover your meal!</div>
+        </div>
+
+        <!-- Loading state -->
+        <div class="results-loading hidden" id="results-loading">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Asking the AI chef...</div>
+          <div class="loading-sub">Analyzing campus menus for you 🍽️</div>
+        </div>
+
+        <!-- Results list -->
+        <div class="results-list hidden" id="results-list">
+          <div class="results-header">
+            <h2 class="results-title">AI Picks For You</h2>
+            <span class="results-count" id="results-count"></span>
+          </div>
+          <div id="recommendations-container"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../scripts/recommendation.js"></script>
+</body>
+</html>
