@@ -54,7 +54,7 @@
   <section class="outlets-section">
     <div class="section-header">
       <h2 class="section-title">Campus Outlets</h2>
-      <p class="section-sub">Your campus food scene – all in one place</p>
+      <p class="section-sub">Your campus food outlet menu – all in one place</p>
     </div>
 
     <div class="outlets-grid" id="outlets-grid">
@@ -65,9 +65,20 @@
       <div class="skeleton-card"></div>
     </div>
   </section>
+  <!-- MENU POPUP -->
+<div class="menu-popup hidden" id="menuPopup">
+  <div class="popup-content">
+    <button class="close-popup" onclick="closeMenuPopup()">✕</button>
 
+    <img id="popupImage" class="popup-image" src="" alt="menu" />
+
+    <h2 id="popupTitle"></h2>
+
+    <div id="popupMenu"></div>
+  </div>
+</div>
   <footer class="footer">
-    <p>Made with ❤️ for college students · <strong>CampusBite</strong></p>
+    <p>Made with Hunger and Love for college students · <strong>CampusBite</strong></p>
   </footer>
 
   <script src="../scripts/home.js"></script>

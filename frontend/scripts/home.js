@@ -107,15 +107,11 @@ function transformApiOutlets(apiData) {
  * Builds HTML for a single outlet card.
  */
 function buildOutletCard(outlet, index) {
-  const menuHtml = outlet.items.map(item => `
-    <div class="menu-item">
-      <span class="item-name">${item.name}</span>
-      <div style="display:flex;gap:8px;align-items:center">
-        <span class="item-tag ${item.veg ? 'tag-veg' : 'tag-nonveg'}">${item.veg ? 'VEG' : 'NON'}</span>
-        <span class="item-price">₹${item.price}</span>
-      </div>
-    </div>
-  `).join('');
+const menuHtml = `
+  <button class="menu-btn" onclick="openMenuPopup('${outlet.name}')">
+    Click Here To See Menu
+  </button>
+`;
 
   return `
     <div class="outlet-card" style="animation-delay:${index * 0.1}s">
@@ -150,3 +146,39 @@ if (!localStorage.getItem('campusbite_token')) {
 }
 // Load on page ready
 loadOutlets();
+
+function openMenuPopup(outletName) {
+  const popup = document.getElementById('menuPopup');
+  const title = document.getElementById('popupTitle');
+  const menu = document.getElementById('popupMenu');
+  const image = document.getElementById('popupImage');
+
+  const outlet = FALLBACK_OUTLETS.find(o => o.name === outletName);
+
+  if (!outlet) return;
+
+  title.textContent = outlet.name;
+
+  const imageMap = {
+  "SmoothieZone": "../assets/images/SmoothieZone.png",
+  "Apna Gaon": "../assets/images/AG1.png",
+  "Apna Gaon": "../assets/images/AG2.png",
+  "Silver Spoon": "../assets/images/SilverSpoon1.png",
+  "Silver Spoon": "../assets/images/SilverSpoon2.png"
+};
+
+image.src = imageMap[outlet.name];
+
+  menu.innerHTML = outlet.items.map(item => `
+    <div class="popup-menu-item">
+      <span>${item.name}</span>
+      <strong>₹${item.price}</strong>
+    </div>
+  `).join('');
+
+  popup.classList.remove('hidden');
+}
+
+function closeMenuPopup() {
+  document.getElementById('menuPopup').classList.add('hidden');
+}
