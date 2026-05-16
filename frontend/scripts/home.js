@@ -8,6 +8,7 @@ const FALLBACK_OUTLETS = [
     category: 'Drinks & Shakes',
     emoji: '🥤',
     bg: 'linear-gradient(135deg, #1a0a00, #2d1500)',
+    menuImage: ['../assets/images/SmoothieZone.png'],
     items: [
       { name: 'Mango Smoothie', price: 90, veg: true },
       { name: 'Chocolate Shake', price: 120, veg: true },
@@ -20,6 +21,7 @@ const FALLBACK_OUTLETS = [
     category: 'Restaurant',
     emoji: '🍽️',
     bg: 'linear-gradient(135deg, #0a1200, #162200)',
+    menuImage: ['../assets/images/SilverSpoon1.png', '../assets/images/SilverSpoon2.png'],
     items: [
       { name: 'Kadhai Paneer', price: 170, veg: true },
       { name: 'Butter Naan', price: 40, veg: true },
@@ -32,6 +34,7 @@ const FALLBACK_OUTLETS = [
     category: 'Indian Food',
     emoji: '🥘',
     bg: 'linear-gradient(135deg, #120a00, #201500)',
+    menuImage: ['../assets/images/AG1.png', '../assets/images/AG2.png'],
     items: [
       { name: 'Dal Tadka', price: 120, veg: true },
       { name: 'Paneer Butter Masala', price: 180, veg: true },
@@ -74,6 +77,31 @@ async function loadOutlets() {
   });
 }
 
+
+function getOutletMenuImage(outletName) {
+  const name = outletName.toLowerCase();
+
+  if (name.includes('smoothie')) {
+    return ['../assets/images/SmoothieZone.png'];
+  }
+
+  if (name.includes('silver')) {
+  return [
+    '../assets/images/SilverSpoon1.png',
+    '../assets/images/SilverSpoon2.png'
+  ];
+}
+
+  if (name.includes('apna') || name.includes('gaon')) {
+    return [
+      '../assets/images/AG1.png',
+      '../assets/images/AG2.png'
+    ];
+  }
+
+  return ['../assets/images/AG1.png'];
+}
+
 /**
  * Transforms API response to the expected format.
  */
@@ -95,6 +123,7 @@ function transformApiOutlets(apiData) {
     category: items[0]?.foodType || 'All Day',
     emoji: emojis[i % emojis.length],
     bg: bgs[i % bgs.length],
+    menuImage: getOutletMenuImage(name),
     items: items.slice(0, 4).map(fi => ({
       name: fi.foodName,
       price: fi.price,
@@ -107,12 +136,6 @@ function transformApiOutlets(apiData) {
  * Builds HTML for a single outlet card.
  */
 function buildOutletCard(outlet, index) {
-const menuHtml = `
-  <button class="menu-btn" onclick="openMenuPopup('${outlet.name}')">
-    Click Here To See Menu
-  </button>
-`;
-
   return `
     <div class="outlet-card" style="animation-delay:${index * 0.1}s">
       <div class="card-image" style="background:${outlet.bg}">
@@ -121,14 +144,51 @@ const menuHtml = `
       <div class="card-body">
         <div class="outlet-name">${outlet.name}</div>
         <div class="outlet-category">${outlet.category}</div>
-        <div class="menu-preview">
-          <div class="menu-label">Menu Highlights</div>
-          ${menuHtml}
-        </div>
+        <button class="menu-open-btn" onclick='openMenuModal(${JSON.stringify(outlet.menuImage)})'>
+          View Menu
+        </button>
       </div>
     </div>
   `;
 }
+
+function openMenuModal(imagePaths) {
+  const modal = document.getElementById('menu-modal');
+  const img1 = document.getElementById('menuImage');
+  const img2 = document.getElementById('menuImage2');
+
+  if (!Array.isArray(imagePaths)) {
+    imagePaths = [imagePaths];
+  }
+
+  img1.src = imagePaths[0];
+
+  if (imagePaths[1]) {
+    img2.src = imagePaths[1];
+    img2.style.display = 'block';
+  } else {
+    img2.src = '';
+    img2.style.display = 'none';
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function closeMenuModal() {
+  const modal = document.getElementById('menu-modal');
+  const img1 = document.getElementById('menuImage');
+  const img2 = document.getElementById('menuImage2');
+
+  modal.classList.add('hidden');
+
+  img1.src = '';
+  img2.src = '';
+  img2.style.display = 'none';
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMenuModal();
+});
 
 function logout() {
   localStorage.removeItem('campusbite_token');
@@ -146,39 +206,3 @@ if (!localStorage.getItem('campusbite_token')) {
 }
 // Load on page ready
 loadOutlets();
-
-function openMenuPopup(outletName) {
-  const popup = document.getElementById('menuPopup');
-  const title = document.getElementById('popupTitle');
-  const menu = document.getElementById('popupMenu');
-  const image = document.getElementById('popupImage');
-
-  const outlet = FALLBACK_OUTLETS.find(o => o.name === outletName);
-
-  if (!outlet) return;
-
-  title.textContent = outlet.name;
-
-  const imageMap = {
-  "SmoothieZone": "../assets/images/SmoothieZone.png",
-  "Apna Gaon": "../assets/images/AG1.png",
-  "Apna Gaon": "../assets/images/AG2.png",
-  "Silver Spoon": "../assets/images/SilverSpoon1.png",
-  "Silver Spoon": "../assets/images/SilverSpoon2.png"
-};
-
-image.src = imageMap[outlet.name];
-
-  menu.innerHTML = outlet.items.map(item => `
-    <div class="popup-menu-item">
-      <span>${item.name}</span>
-      <strong>₹${item.price}</strong>
-    </div>
-  `).join('');
-
-  popup.classList.remove('hidden');
-}
-
-function closeMenuPopup() {
-  document.getElementById('menuPopup').classList.add('hidden');
-}

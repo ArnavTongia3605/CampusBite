@@ -11,10 +11,10 @@
 <body>
   <!-- Navbar -->
   <nav class="navbar">
-    <div class="nav-brand">
+    <a href="home.html" class="nav-brand">
       <span class="nav-icon">🍔</span>
       <span class="nav-name">CampusBite</span>
-    </div>
+    </a>
     <ul class="nav-links">
       <li><a href="home.html" class="nav-link active">Home</a></li>
       <li><a href="recommendation.html" class="nav-link">Recommend</a></li>
@@ -30,6 +30,11 @@
 
   <!-- Hero -->
   <section class="hero">
+    <div class="hero-side hero-side-left">
+      <img src="../assets/images/AG1.png" alt="Campus food" />
+      <img src="../assets/images/SmoothieZone.png" alt="Campus smoothie" />
+    </div>
+
     <div class="hero-content">
       <div class="hero-badge">🎓 College Food Guide</div>
       <h1 class="hero-title">
@@ -41,12 +46,10 @@
         ✨ Get AI Recommendation
       </a>
     </div>
-    <div class="hero-emoji-cluster">
-      <span class="float e1">🍕</span>
-      <span class="float e2">🥗</span>
-      <span class="float e3">☕</span>
-      <span class="float e4">🍜</span>
-      <span class="float e5">🧆</span>
+
+    <div class="hero-side hero-side-right">
+      <img src="../assets/images/SilverSpoon1.png" alt="Campus restaurant food" />
+      <img src="../assets/images/AG2.png" alt="Campus outlet menu" />
     </div>
   </section>
 
@@ -65,20 +68,21 @@
       <div class="skeleton-card"></div>
     </div>
   </section>
-  <!-- MENU POPUP -->
-<div class="menu-popup hidden" id="menuPopup">
-  <div class="popup-content">
-    <button class="close-popup" onclick="closeMenuPopup()">✕</button>
 
-    <img id="popupImage" class="popup-image" src="" alt="menu" />
-
-    <h2 id="popupTitle"></h2>
-
-    <div id="popupMenu"></div>
+  <!-- Menu Image Modal -->
+  <div class="menu-modal hidden" id="menu-modal">
+    <div class="menu-modal-backdrop" onclick="closeMenuModal()"></div>
+    <div class="menu-modal-content">
+      <button class="menu-modal-close" onclick="closeMenuModal()" aria-label="Close menu">×</button>
+      <div class="menu-gallery">
+        <img id="menuImage" src="" alt="Menu Image">
+        <img id="menuImage2" src="" alt="Menu Image 2" style="display:none;">
+      </div>
+    </div>
   </div>
-</div>
+
   <footer class="footer">
-    <p>Made with Hunger and Love for college students · <strong>CampusBite</strong></p>
+    <p>Made with ❤️ for college students · <strong>CampusBite</strong></p>
   </footer>
 
   <script src="../scripts/home.js"></script>
